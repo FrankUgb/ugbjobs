@@ -1,26 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <!-- Mostrar la barra de navegación solo si no estamos en la ruta de registro -->
+    <MyNavbar v-if="$route.name !== 'RegistroUsuario'" />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MyNavbar from './components/MyNavbar.vue'; // Asegúrate de que la ruta sea correcta
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    MyNavbar,
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
