@@ -8,7 +8,7 @@
           <li><a href="#">Curriculum</a></li>
           <li><a href="#">Contacto</a></li>
           <li><router-link to="/registro">Registro</router-link></li> <!-- Usa router-link -->
-          <li><a href="#">Iniciar Sesión</a></li>
+          <li><router-link to="/inicio">Iniciar Sesion</router-link></li> <!-- Usa router-link -->
         </ul>
       </div>
     </nav>

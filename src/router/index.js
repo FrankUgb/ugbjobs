@@ -20,8 +20,14 @@ const routes = [
     path: '/empleo',
     name: 'Empleo',
     component: () => import("../components/Views/EmpleoPage.vue")
-  }
-
+  },
+  {
+    path: '/inicio',
+    name: 'InicioUsuario',
+    component: () => import("../components/Views/Inicio-User.vue")
+  },
+  
+  
 ];
 
 const router = createRouter({

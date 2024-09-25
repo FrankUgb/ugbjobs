@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>Registro de Usuario</h1>
+    <li><router-link to="/">Inicio</router-link></li> <!-- Usa router-link -->
+
     <!-- Tu formulario de registro aquí -->
   </div>
 </template>
