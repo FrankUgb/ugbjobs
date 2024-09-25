@@ -9,12 +9,12 @@ const routes = [
   {
     path: '/trabajo',
     name: 'Trabajo',
-    component: () => import("../components/Views/Trabajo.vue")
+    component: () => import("../components/Views/Lista-Empleos.vue")
   },
   {
     path: '/registro',
     name: 'Registro',
-    component: () => import("../components/Views/Registro.vue")
+    component: () => import("../components/Views/Registro-User.vue")
   },
   {
     path: '/empleo',

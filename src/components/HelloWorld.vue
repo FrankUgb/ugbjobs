@@ -24,7 +24,7 @@
       <p><strong>Empresa:</strong> Policía Nacional</p>
       <p><strong>Ubicación:</strong> CECOT</p>
       <p><strong>Salario:</strong> $1,000/mes</p>
-      <router-link to="/trabajo" class="view-job-button">Ver Empleo</router-link>
+      <router-link to="/empleo" class="view-job-button">Ver Empleo</router-link>
     </div>
 
     <div class="job-item">
