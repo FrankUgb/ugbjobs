@@ -30,9 +30,12 @@ const routes = [
     path: '/MiCV',
     name: 'MiCurriculum',  // Cambiado para que coincida
     component: () => import("../components/Views/MiCV.vue")
+  },
+  {
+    path: '/contactos',
+    name: 'ContactPage',
+    component: () => import('../components/Views/Contactos.vue') // Verifica que este nombre sea correcto
   }
-
-  
   
 ];
 
