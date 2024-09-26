@@ -26,6 +26,11 @@ const routes = [
     name: 'InicioUsuario',
     component: () => import("../components/Views/Inicio-User.vue")
   },
+  {
+    path: '/MiCV',
+    name: 'MiCV',
+    component: () => import("../components/Views/MiCV.vue")
+  },
   
   
 ];

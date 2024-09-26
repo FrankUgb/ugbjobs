@@ -1,125 +1,113 @@
 <template>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currículum Vitae</title>
-    <link rel="stylesheet" href="../css/MiCV.css">
-</head>
-<body>
-    <div id="app" class="cv-container">
-
-        <!-- Header con información personal -->
-        <div class="header">
-            <img src="../html/imagen.png" alt="Foto de Perfil" class="profile-pic">
-            <div class="personal-info">
-                <h1>{{ name }}</h1>
-                <p><i class="fas fa-envelope"></i> {{ email }}</p>
-            </div>
-        </div>
-
-        <!-- Información Académica -->
-        <div class="academic-section">
-            <h2>Información Académica</h2>
-            <p>Progreso Académico: {{ academicProgress }}</p>
-            <p>CUM: {{ cum }}</p>
-            <h3>Asignaturas destacadas</h3>
-            <ul>
-                <li v-for="subject in subjects" :key="subject">{{ subject }}</li>
-            </ul>
-        </div>
-
-        <!-- Objetivo Profesional -->
-        <div class="objective-section">
-            <h2>Objetivo Profesional</h2>
-            <p>{{ objective }}</p>
-        </div>
-
-        <!-- Habilidades -->
-        <div class="skills-section">
-            <h2>Habilidades Técnicas</h2>
-            <ul>
-                <li v-for="skill in techSkills" :key="skill">{{ skill }}</li>
-            </ul>
-
-            <h2>Habilidades Blandas</h2>
-            <ul>
-                <li v-for="softSkill in softSkills" :key="softSkill">{{ softSkill }}</li>
-            </ul>
-        </div>
-
-        <!-- Idiomas -->
-        <div class="languages-section">
-            <h2>Idiomas</h2>
-            <ul>
-                <li v-for="language in languages" :key="language">{{ language }}</li>
-            </ul>
-        </div>
-
-        <!-- Proyectos y Logros -->
-        <div class="projects-section">
-            <h2>Proyectos y Logros</h2>
-            <ul>
-                <li v-for="project in projects" :key="project">{{ project }}</li>
-            </ul>
-        </div>
-
-        <!-- Certificados -->
-        <div class="certificates-section">
-            <h2>Certificados</h2>
-            <ul>
-                <li v-for="certificate in certificates" :key="certificate">{{ certificate }}</li>
-            </ul>
-        </div>
-
-        <!-- Extras -->
-        <div class="extras-section">
-            <h2>Extras</h2>
-            <p>Teléfono: {{ phone }}</p>
-            <p>LinkedIn: {{ linkedin }}</p>
-        </div>
-
-        <!-- Botones para guardar y descargar PDF -->
-        <div class="actions">
-            <button @click="saveCurriculum">Guardar Currículum</button>
-            <button @click="downloadPDF">Descargar como PDF</button>
-        </div>
+    <div class="cv-container">
+      <!-- Foto de perfil editable -->
+      <div class="profile-section">
+        <label for="profilePhoto">Subir foto de perfil:</label>
+        <input type="file" @change="handleFileChange">
+        <img :src="profilePhoto" alt="Profile Picture" class="profile-photo" v-if="profilePhoto">
+      </div>
+      
+      <!-- Nombre y correo editables -->
+      <div class="basic-info-section">
+        <label for="fullName">Nombre Completo:</label>
+        <input v-model="fullName" id="fullName" type="text" placeholder="Nombre Completo">
+        
+        <label for="email">Correo de Contacto:</label>
+        <input v-model="email" id="email" type="email" placeholder="Correo Electrónico">
+      </div>
+  
+      <!-- Progreso académico y CUM editables -->
+      <div class="academic-section">
+        <label for="academicProgress">Progreso Académico:</label>
+        <input v-model="academicProgress" id="academicProgress" type="text" placeholder="Cursando Ciclo x de X">
+        
+        <label for="cum">CUM:</label>
+        <input v-model="cum" id="cum" type="text" placeholder="CUM">
+      </div>
+  
+      <!-- Objetivo profesional editable -->
+      <div class="professional-section">
+        <label for="professionalGoal">Objetivo Profesional:</label>
+        <textarea v-model="professionalGoal" id="professionalGoal" placeholder="Objetivo Profesional"></textarea>
+      </div>
+  
+      <!-- Habilidades técnicas y blandas editables -->
+      <div class="skills-section">
+        <label for="technicalSkills">Habilidades Técnicas:</label>
+        <input v-model="technicalSkills" id="technicalSkills" placeholder="Habilidad Técnica (Separar con comas)">
+  
+        <label for="softSkills">Habilidades Blandas:</label>
+        <input v-model="softSkills" id="softSkills" placeholder="Habilidad Blanda (Separar con comas)">
+      </div>
+  
+      <!-- Botón para guardar -->
+      <button @click="handleSaveCv">Guardar Currículum</button>
     </div>
-
-    <!-- Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <!-- jsPDF para generar PDFs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                name: 'Juan Pérez',
-                email: 'juan.perez@example.com',
-                academicProgress: 'Cursando Ciclo 4 de 8',
-                cum: '8.5',
-                subjects: ['Matemáticas Avanzadas', 'Física Aplicada', 'Programación'],
-                objective: 'Consolidar mis conocimientos y aportar en el área de desarrollo de software.',
-                techSkills: ['HTML', 'CSS', 'JavaScript', 'Vue.js'],
-                softSkills: ['Comunicación', 'Trabajo en equipo', 'Liderazgo'],
-                languages: ['Español (Nativo)', 'Inglés (Avanzado)'],
-                projects: ['Proyecto A', 'Proyecto B', 'Proyecto C'],
-                certificates: ['Certificado en Vue.js por Universidad X', 'Certificación en UX/UI por Institución Y'],
-                phone: '555-555-5555',
-                linkedin: 'linkedin.com/in/juanperez'
-            },
-            methods: {
-                saveCurriculum() {
-                    alert('Currículum guardado');
-                    // Aquí puedes agregar funcionalidad para guardar los datos, por ejemplo en localStorage o una base de datos
-                },
-                downloadPDF() {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-                    doc.text(`Currículum de ${this.name}`, 10, 10);
-                    doc.save('Curriculum.pdf');
-                }
-            }
-        });
-    </script>
-</body>
-</template>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        profilePhoto: '',
+        fullName: 'Nombre Completo',
+        email: 'correo@example.com',
+        academicProgress: 'Cursando Ciclo X de X',
+        cum: '8.5',
+        professionalGoal: 'Mi objetivo es...',
+        technicalSkills: '',
+        softSkills: '',
+      };
+    },
+    methods: {
+      handleSaveCv() {
+        alert('Currículum guardado');
+      },
+      handleFileChange(e) {
+        const file = e.target.files[0];
+        this.profilePhoto = URL.createObjectURL(file);
+      }
+    }
+  };
+  </script>
+  
+  <style scoped>
+  .cv-container {
+    background-color: #e3f2fd;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: auto;
+    color: #01579b;
+  }
+  
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  
+  input, textarea {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+  }
+  
+  button {
+    background-color: #01579b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0277bd;
+  }
+  </style>
+  

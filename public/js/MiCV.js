@@ -1,19 +1,25 @@
-new Vue({
-    el: '#app',
-    data: {
-      name: 'Nombre Completo',
-      email: 'correo@ejemplo.com',
-      academicProgress: 'Cursando Ciclo 5 de 8',
-      cum: '8.5',
-      subjects: ['Asignatura 1', 'Asignatura 2', 'Asignatura 3'],
-      objective: 'Mi objetivo es aplicar mis conocimientos y habilidades técnicas en un entorno profesional...',
-      techSkills: ['Programación en Python', 'Desarrollo Web', 'SQL'],
-      softSkills: ['Comunicación Efectiva', 'Trabajo en Equipo', 'Gestión del Tiempo'],
-      languages: ['Inglés - Avanzado', 'Español - Nativo'],
-      projects: ['Proyecto 1 - Descripción breve del proyecto', 'Logro 1 - Descripción del logro'],
-      certificates: ['Certificación en XYZ - Institución ABC - Fecha'],
-      phone: '+123456789',
-      linkedin: 'linkedin.com/in/usuario'
+export default {
+    data() {
+      return {
+        profilePhoto: '',  // Foto de perfil (editable al subir archivo)
+        fullName: 'Nombre Completo',
+        email: 'correo@example.com',
+        academicProgress: 'Cursando Ciclo X de X',
+        cum: '8.5',
+        professionalGoal: 'Mi objetivo es...',
+        technicalSkills: '',
+        softSkills: '',
+      };
+    },
+    methods: {
+      saveCv() {
+        // Simula el guardado del currículum (puedes implementar almacenamiento local o enviar a backend)
+        alert('Currículum guardado');
+      },
+      onFileChange(e) {
+        const file = e.target.files[0];
+        this.profilePhoto = URL.createObjectURL(file);
+      }
     }
-  });
+  };
   
