@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/registro',
     name: 'Registro',
-    component: () => import("../components/Views/Registro-User.vue")
+    component: () => import("../components/Views/registroEstudiante.vue")
   },
   {
     path: '/empleo',
