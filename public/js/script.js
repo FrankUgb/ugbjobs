@@ -3,7 +3,7 @@ const pass = document.getElementById("pass"),
 
 icon.addEventListener("click", e => {
     if (pass.type === "password") {
-        pass.type = "text";
+        pass.type = "pass";
     } else {
         pass.type = "password"
     }
