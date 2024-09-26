@@ -6,16 +6,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden; /* Evita el desplazamiento del body */
 }
 
 .formulario-contenedor {
     background-color: #fff;
-    padding: 50px;
+    padding: 30px; /* Reduce el padding inicial */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    margin: 20px; /* Añade un margen para despegar el contenedor de los bordes */
+    width: 90%; /* Cambia a un ancho responsive */
+    max-width: 500px; /* Ancho máximo para el contenedor */
+    margin: 20px; /* Mantiene un margen */
+    max-height: 90vh; /* Limita la altura máxima */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
 }
 
 .formulario-contenedor img {
@@ -27,7 +31,7 @@ body {
 .barra_azul {
     color: #000000;
     height: 32px;
-    width: 100%; /* Ajusta el ancho al contenedor */
+    width: 100%;
     margin: 10px 0;
     border-radius: 5px;
     font-weight: bold;
@@ -50,7 +54,10 @@ label {
     color: #333;
 }
 
-input[type="text"], input[type="password"], input[type="date"], select {
+input[type="text"],
+input[type="password"],
+input[type="date"],
+select {
     width: 100%;
     padding: 8px;
     margin-bottom: 15px;
@@ -81,6 +88,7 @@ button:hover {
 @media (max-width: 600px) {
     .formulario-contenedor {
         padding: 15px;
+        width: 90%; /* Mantiene el contenedor responsive */
     }
 
     button {
@@ -92,7 +100,7 @@ button:hover {
 @media screen and (min-width: 768px) {
     .formulario-contenedor {
         width: 400px; /* Aumenta el tamaño en pantallas más grandes */
-        padding: 60px; /* Aumenta el padding para pantallas más grandes */
+        padding: 40px; /* Aumenta el padding para pantallas más grandes */
         margin: 40px auto; /* Centra el contenedor y aumenta el margen */
     }
 }
@@ -100,7 +108,7 @@ button:hover {
 @media screen and (min-width: 1024px) {
     .formulario-contenedor {
         width: 500px; /* Aumenta aún más el tamaño en pantallas muy grandes */
-        padding: 70px;
+        padding: 60px; /* Aumenta el padding para pantallas muy grandes */
         margin: 60px auto; /* Aumenta el margen para pantallas muy grandes */
     }
 }
