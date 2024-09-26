@@ -22,6 +22,11 @@ const routes = [
     component: () => import("../components/Views/EmpleoPage.vue")
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import("../components/Views/loginEstudiante.vue")
+  },
+  {
     path: '/inicio',
     name: 'InicioUsuario',
     component: () => import("../components/Views/Inicio-User.vue")
