@@ -10,6 +10,7 @@
           <li><router-link to="/registro">Registro</router-link></li> <!-- Usa router-link -->
           <li><router-link to="/inicio">Iniciar Sesion</router-link></li> <!-- Usa router-link -->
         </ul>
+        
       </div>
     </nav>
   </template>
