@@ -1,0 +1,70 @@
+/* Estilos globales para eliminar márgenes y padding */
+html, body {
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar padding predeterminado */
+    height: 100%; /* Asegurar que ocupen toda la altura */
+    box-sizing: border-box; /* Incluir padding y borde en el tamaño total */
+  }
+  
+  /* Estilo específico para la lista de empleos */
+  .job-list {
+    max-width: 1200px;
+    margin: 0 auto; /* Centrando el contenedor */
+    padding: 20px; /* Espacio interior */
+    text-align: center;
+  }
+  
+  .job-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Espaciado entre las tarjetas */
+  }
+  
+  .job-card {
+    background-color: white;
+    border: 1px solid #e0e0e0; /* Bordes claros */
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px; /* Margen entre tarjetas */
+    width: calc(25% - 20px); /* 4 elementos por fila */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: transform 0.2s;
+  }
+  
+  .job-card:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+  }
+  
+  .job-card h2 {
+    font-size: 1.5em;
+    color: #333; /* Color del título */
+  }
+  
+  .company {
+    font-weight: bold;
+    color: #007bff; /* Color para el nombre de la empresa */
+  }
+  
+  .location {
+    color: #6c757d; /* Color gris para la ubicación */
+  }
+  
+  .description {
+    color: #495057; /* Color gris más oscuro para la descripción */
+    margin: 10px 0;
+  }
+  
+  .apply-button {
+    background-color: #007bff; /* Color del botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .apply-button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+  }
+  
