@@ -1,60 +1,62 @@
-<template>
-    <div class="cv-container">
-      <!-- Foto de perfil editable -->
+<template> 
+    <div class="cv-container" ref="cvContent">
+      <header class="header">
+        <h1>Currículum Vitae</h1>
+      </header>
+  
       <div class="profile-section">
-        <label for="profilePhoto">Subir foto de perfil:</label>
-        <input type="file" @change="handleFileChange">
+        <input type="file" @change="handleFileChange" class="file-input" />
         <img :src="profilePhoto" alt="Profile Picture" class="profile-photo" v-if="profilePhoto">
       </div>
-      
-      <!-- Nombre y correo editables -->
-      <div class="basic-info-section">
+  
+      <div class="basic-info-section section">
         <label for="fullName">Nombre Completo:</label>
-        <input v-model="fullName" id="fullName" type="text" placeholder="Nombre Completo">
+        <input v-model="fullName" id="fullName" type="text" placeholder="Ingrese su nombre completo" class="plain-input" />
         
         <label for="email">Correo de Contacto:</label>
-        <input v-model="email" id="email" type="email" placeholder="Correo Electrónico">
+        <input v-model="email" id="email" type="email" placeholder="Ingrese su correo electrónico" class="plain-input" />
       </div>
   
-      <!-- Progreso académico y CUM editables -->
-      <div class="academic-section">
+      <div class="academic-section section">
         <label for="academicProgress">Progreso Académico:</label>
-        <input v-model="academicProgress" id="academicProgress" type="text" placeholder="Cursando Ciclo x de X">
+        <input v-model="academicProgress" id="academicProgress" type="text" placeholder="Ingrese su progreso académico" class="plain-input" />
         
         <label for="cum">CUM:</label>
-        <input v-model="cum" id="cum" type="text" placeholder="CUM">
+        <input v-model="cum" id="cum" type="text" placeholder="Ingrese su CUM" class="plain-input" />
       </div>
   
-      <!-- Objetivo profesional editable -->
-      <div class="professional-section">
+      <div class="professional-section section">
         <label for="professionalGoal">Objetivo Profesional:</label>
-        <textarea v-model="professionalGoal" id="professionalGoal" placeholder="Objetivo Profesional"></textarea>
+        <textarea v-model="professionalGoal" id="professionalGoal" placeholder="Escriba su objetivo profesional" class="plain-textarea"></textarea>
       </div>
   
-      <!-- Habilidades técnicas y blandas editables -->
-      <div class="skills-section">
+      <div class="skills-section section">
         <label for="technicalSkills">Habilidades Técnicas:</label>
-        <input v-model="technicalSkills" id="technicalSkills" placeholder="Habilidad Técnica (Separar con comas)">
+        <input v-model="technicalSkills" id="technicalSkills" placeholder="Ingrese sus habilidades técnicas (separar con comas)" class="plain-input" />
   
         <label for="softSkills">Habilidades Blandas:</label>
-        <input v-model="softSkills" id="softSkills" placeholder="Habilidad Blanda (Separar con comas)">
+        <input v-model="softSkills" id="softSkills" placeholder="Ingrese sus habilidades blandas (separar con comas)" class="plain-input" />
       </div>
   
-      <!-- Botón para guardar -->
-      <button @click="handleSaveCv">Guardar Currículum</button>
+      <div class="buttons">
+        <button @click="handleSaveCv" class="cta-button">Guardar Currículum</button>
+        <button @click="downloadPdf" class="cta-button">Descargar como PDF</button>
+      </div>
     </div>
   </template>
   
   <script>
+  import html2pdf from 'html2pdf.js';
+  
   export default {
     data() {
       return {
         profilePhoto: '',
-        fullName: 'Nombre Completo',
-        email: 'correo@example.com',
-        academicProgress: 'Cursando Ciclo X de X',
-        cum: '8.5',
-        professionalGoal: 'Mi objetivo es...',
+        fullName: '',
+        email: '',
+        academicProgress: '',
+        cum: '',
+        professionalGoal: '',
         technicalSkills: '',
         softSkills: '',
       };
@@ -66,6 +68,12 @@
       handleFileChange(e) {
         const file = e.target.files[0];
         this.profilePhoto = URL.createObjectURL(file);
+      },
+      downloadPdf() {
+        const element = this.$refs.cvContent;
+        html2pdf()
+          .from(element)
+          .save('curriculum.pdf');
       }
     }
   };
@@ -73,41 +81,103 @@
   
   <style scoped>
   .cv-container {
-    background-color: #e3f2fd;
+    background-color: #e0e0e0; /* Fondo gris claro */
     padding: 20px;
     border-radius: 10px;
-    max-width: 800px;
+    max-width: 700px;
     margin: auto;
-    color: #01579b;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #333; /* Texto gris oscuro */
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    color: #2ecc71; /* Verde esmeralda */
+  }
+  
+  .profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .file-input {
+    margin-bottom: 10px;
   }
   
   .profile-photo {
-    width: 100px;
-    height: 100px;
+    width: 100px; /* Tamaño ajustado */
+    height: 100px; /* Tamaño ajustado */
     border-radius: 50%;
+    border: 2px solid #2ecc71; /* Verde esmeralda */
     margin-top: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
   
-  input, textarea {
+  .plain-input, .plain-textarea {
     display: block;
     margin-bottom: 10px;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc; /* Solo borde inferior */
     width: 100%;
+    font-size: 14px;
+    background-color: transparent; /* Fondo transparente */
+    color: #333; /* Texto gris oscuro */
   }
   
-  button {
-    background-color: #01579b;
+  .plain-input:focus, .plain-textarea:focus {
+    outline: none; /* Sin contorno */
+    border-bottom-color: #2ecc71; /* Verde esmeralda en el borde inferior */
+  }
+  
+  .plain-textarea {
+    resize: none; /* Sin opción de redimensionar */
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .section {
+    border: 1px solid #2ecc71; /* Verde esmeralda */
+    border-radius: 5px;
+    padding: 15px; /* Espaciado interno */
+    margin-bottom: 20px; /* Espaciado entre secciones */
+    background-color: #ffffff; /* Fondo blanco para secciones */
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .cta-button {
+    background-color: #e67e22; /* Naranja quemado */
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    flex: 1;
+    margin-right: 10px;
   }
   
-  button:hover {
-    background-color: #0277bd;
+  .cta-button:last-child {
+    margin-right: 0;
+  }
+  
+  .cta-button:hover {
+    background-color: #d35400; /* Naranja más oscuro */
+    transform: scale(1.03);
   }
   </style>
   
