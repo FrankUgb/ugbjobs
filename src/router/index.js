@@ -22,16 +22,25 @@ const routes = [
     component: () => import("../components/Views/EmpleoPage.vue")
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import("../components/Views/loginEstudiante.vue")
+  },
+  {
     path: '/inicio',
     name: 'InicioUsuario',
     component: () => import("../components/Views/Inicio-User.vue")
   },
   {
     path: '/MiCV',
-    name: 'MiCV',
+    name: 'MiCurriculum',  // Cambiado para que coincida
     component: () => import("../components/Views/MiCV.vue")
   },
-  
+  {
+    path: '/contactos',
+    name: 'ContactPage',
+    component: () => import('../components/Views/Contactos.vue') // Verifica que este nombre sea correcto
+  }
   
 ];
 

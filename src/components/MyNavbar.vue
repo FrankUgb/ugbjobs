@@ -5,10 +5,10 @@
           <li><router-link to="/">Inicio</router-link></li> <!-- Usa router-link -->
           <li><router-link to="/trabajo">Empleos</router-link></li> <!-- Usa router-link -->
           <li><a href="#">Acerca</a></li>
-          <li><a href="#">Curriculum</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li><router-link to="/MiCV">Currículum</router-link></li> <!-- Usa router-link -->
+          <li><router-link to="/contactos">Contactos</router-link></li> <!-- Usa router-link -->
           <li><router-link to="/registro">Registro</router-link></li> <!-- Usa router-link -->
-          <li><router-link to="/inicio">Iniciar Sesion</router-link></li> <!-- Usa router-link -->
+          <li><router-link to="/login">Iniciar Sesion</router-link></li> <!-- Usa router-link -->
         </ul>
         
       </div>

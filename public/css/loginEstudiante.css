@@ -9,15 +9,20 @@ body {
     height: 100vh;
 }
 
+
 .login-contenedor {
     background-color: #fff;
-    padding: 50px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 90vh; /* Limitar la altura máxima */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
 }
 
-.login-contenedor img {
+
+.logo {
     display: block;
     margin: 0 auto;
     max-width: 70%;
@@ -26,12 +31,11 @@ body {
 .barra_azul {
     color: #000000;
     height: 32px;
-    width: 310px;
-    margin: 10px;
+    width: 100%;
+    margin: 10px 0;
     border-radius: 5px;
     background-color: #2ECC71;
     font-weight: bold;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,16 +49,25 @@ label {
 }
 
 input[type="text"] {
-    width: 95%;
+    width: 91%; /* Cambiado a 100% para que se ajuste al contenedor */
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #000000;
     border-radius: 4px;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+}
+
+input[type="password"] {
+    width: 93%; /* Cambiado a 100% para que se ajuste al contenedor */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-size: 1.1rem;
 }
 
 button {
-    width: 100%;
+    width: 100%; /* Asegúrate de que el botón también use el 100% del ancho */
     padding: 10px;
     background-color: #2ECC71;
     color: #000000;
@@ -62,7 +75,8 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px; /* Espacio para el botón de mostrar contraseña */
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 button:hover {
@@ -71,28 +85,42 @@ button:hover {
     font-weight: bold;
 }
 
-#togglePassword {
-    background: #ddd;
-    border: none;
-    cursor: pointer;
-    margin-top: -40px; /* Ajuste para alinear el botón con el campo de contraseña */
-    margin-bottom: 15px;
+/* Media Queries para mejorar la adaptabilidad */
+@media (max-width: 600px) {
+    .login-contenedor {
+        padding: 20px;
+    }
+
+    .barra_azul {
+        font-size: 18px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    .pass {
+        font-size: 1.2rem;
+    }
+
+    button {
+        font-size: 14px;
+    }
 }
 
-.container  {
-    display: flex;
+.container {
+    display: flex; /* Cambia a flex para que el ícono se alinee correctamente */
     align-items: center;
+    position: relative;
 }
 
 .pass {
-    font-size: 1.5rem;
-    width: 400px;
-    padding: 10px 5px;
+    width: 100%; /* Campo de contraseña ocupa todo el ancho */
+    padding: 10px;
     border-radius: 4px;
 }
 
 .bx {
-    font-size: 30px;
-    transform: translateX(-35px);
+    position: absolute; /* Posicionar el ícono dentro del campo */
+    right: 10px; /* Espaciado desde el borde derecho */
     cursor: pointer;
+    font-size: 20px; /* Tamaño del ícono */
 }

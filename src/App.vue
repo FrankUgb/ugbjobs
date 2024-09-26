@@ -18,7 +18,7 @@ export default {
     // Verifica si la ruta actual está en el array de rutas donde quieres ocultar la navbar
     isHiddenNavbarPage() {
       // Definir todas las rutas donde quieras ocultar la navbar
-      const hiddenRoutes = ['/registro', '/inicio', ]; 
+      const hiddenRoutes = ['/registro', '/login', ]; 
       
       // Verificar si la ruta actual está en ese array
       return hiddenRoutes.includes(this.$route.path);

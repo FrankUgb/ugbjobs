@@ -61,6 +61,7 @@
         softSkills: '',
       };
     },
+    name: 'MiCurriculum',  
     methods: {
       handleSaveCv() {
         alert('Currículum guardado');
@@ -77,7 +78,8 @@
       }
     }
   };
-  </script>
+</script>
+
   
   <style scoped>
   .cv-container {
