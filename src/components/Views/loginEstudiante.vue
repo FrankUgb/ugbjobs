@@ -1,7 +1,7 @@
 <template>
     <div class="login-contenedor">
         <div class="barra_azul">INICIO DE SESIÓN</div>
-        <img src="../../../public/media/loginRegistroEstu/logoJobsUGB.png" alt="Logo UGB" class="logo">
+        <img src="../../assets/Img/logoJobsUGB.png" alt="Logo UGB" class="logo">
         <form @submit.prevent="validarLogin">
             <label for="carnet">Carnet Estudiantil:</label>
             <input type="text" id="carnet" v-model="carnet" required>
