@@ -47,18 +47,25 @@
 
     <!-- Carrusel de Imágenes -->
     <ImageCarousel />
+
+    <!-- Footer -->
+    <FooterComponent /> <!-- Componente de Footer agregado aquí -->
   </div>
 </template>
 
+
 <script>
 import ImageCarousel from './ImageCarousel.vue'; // Asegúrate de que la ruta es correcta
+import FooterComponent from './FooterComponent.vue'; // Importa el componente Footer
 
 import '../assets/Css/HomeComponent.css'; // Importar el archivo CSS
 
 export default {
   name: 'HomeComponent',
   components: {
-    ImageCarousel, // Registrar el componente aquí
+    ImageCarousel, // Registrar el componente del carrusel
+    FooterComponent, // Registrar el componente del footer aquí
   },
 };
 </script>
+

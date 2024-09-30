@@ -40,7 +40,12 @@ const routes = [
     path: '/contactos',
     name: 'ContactPage',
     component: () => import('../components/Views/Contactos.vue') // Verifica que este nombre sea correcto
-  }
+  },
+  {
+    path: '/footer',
+    name: 'FooterComponent',
+    component: () => import('../components/FooterComponent.vue') // Lazy loading
+  }  
   
 ];
 

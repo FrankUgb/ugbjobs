@@ -60,11 +60,19 @@
     border-radius: 8px; /* Bordes redondeados para los trabajos */
 }
 
+/* Estilo para la lista de trabajos */
+.job-list {
+    display: flex; /* Usa Flexbox para alinear horizontalmente */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan si no caben en una línea */
+    gap: 20px; /* Espacio entre las tarjetas */
+}
+
 /* Estilo para cada elemento de trabajo (tarjeta) */
 .job-item {
+    flex: 1 1 30%; /* Permite que cada tarjeta ocupe al menos el 30% del ancho del contenedor */
+    min-width: 250px; /* Ancho mínimo para cada tarjeta */
     border: 3px solid #ccc;
     padding: 10px; /* Aumentar el padding para más espacio */
-    margin-bottom: 10px;
     background-color: #ffffff;
     border-radius: 8px; /* Bordes redondeados para la tarjeta */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para efecto de elevación */

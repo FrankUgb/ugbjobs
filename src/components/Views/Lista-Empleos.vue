@@ -11,11 +11,18 @@
       </div>
     </div>
   </div>
+  <!-- Agrega el componente del footer aquí -->
+  <FooterComponent />
 </template>
 
 <script>
+import FooterComponent from '@/components/FooterComponent.vue'; // Asegúrate de que la ruta sea correcta
+
 export default {
   name: 'TrabajoDetalle',
+  components: {
+    FooterComponent, // Registra el componente
+  },
   data() {
     return {
       jobs: [
