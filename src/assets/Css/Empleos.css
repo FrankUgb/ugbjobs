@@ -1,70 +1,99 @@
 /* Estilos globales para eliminar márgenes y padding */
 html, body {
-    margin: 0; /* Eliminar márgenes predeterminados */
-    padding: 0; /* Eliminar padding predeterminado */
-    height: 100%; /* Asegurar que ocupen toda la altura */
-    box-sizing: border-box; /* Incluir padding y borde en el tamaño total */
-  }
-  
-  /* Estilo específico para la lista de empleos */
-  .job-list {
-    max-width: 1200px;
-    margin: 0 auto; /* Centrando el contenedor */
-    padding: 20px; /* Espacio interior */
-    text-align: center;
-  }
-  
-  .job-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Espaciado entre las tarjetas */
-  }
-  
-  .job-card {
-    background-color: white;
-    border: 1px solid #e0e0e0; /* Bordes claros */
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px; /* Margen entre tarjetas */
-    width: calc(25% - 20px); /* 4 elementos por fila */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    transition: transform 0.2s;
-  }
-  
-  .job-card:hover {
-    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
-  }
-  
-  .job-card h2 {
-    font-size: 1.5em;
-    color: #333; /* Color del título */
-  }
-  
-  .company {
-    font-weight: bold;
-    color: #007bff; /* Color para el nombre de la empresa */
-  }
-  
-  .location {
-    color: #6c757d; /* Color gris para la ubicación */
-  }
-  
-  .description {
-    color: #495057; /* Color gris más oscuro para la descripción */
-    margin: 10px 0;
-  }
-  
-  .apply-button {
-    background-color: #007bff; /* Color del botón */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .apply-button:hover {
-    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
-  }
-  
+  margin: 0; /* Eliminar márgenes predeterminados */
+  padding: 0; /* Eliminar padding predeterminado */
+  height: 100%; /* Asegurar que ocupen toda la altura */
+  box-sizing: border-box; /* Incluir padding y borde en el tamaño total */
+}
+
+/* Estilo específico para la lista de empleos */
+.job-list {
+  max-width: 1200px;
+  margin: 0 auto; /* Centrando el contenedor */
+  padding: 20px; /* Espacio interior */
+  text-align: center;
+}
+
+/* Filtros */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Espacio entre los filtros */
+  margin-bottom: 20px; /* Espacio debajo de los filtros */
+}
+
+.filters select {
+  padding: 10px;
+  border-radius: 5px; /* Bordes redondeados */
+  border: 1px solid #ccc; /* Borde gris claro */
+  background-color: #ffffff; /* Fondo blanco para los selectores */
+  color: #333; /* Color de texto */
+  transition: border-color 0.3s; /* Transición suave */
+}
+
+.filters select:hover {
+  border-color: #50C878; /* Cambiar color al pasar el mouse */
+}
+
+/* Contenedor de trabajos */
+.job-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Espaciado entre las tarjetas */
+}
+
+/* Tarjetas de trabajo */
+.job-card {
+  background-color: white; /* Fondo blanco para las tarjetas */
+  border: 1px solid #e0e0e0; /* Bordes claros */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px;
+  margin: 10px; /* Margen entre tarjetas */
+  width: calc(25% - 20px); /* 4 elementos por fila */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: transform 0.2s; /* Transición suave */
+}
+
+/* Efecto al pasar el mouse sobre la tarjeta */
+.job-card:hover {
+  transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+}
+
+/* Estilos del título */
+.job-card h2 {
+  font-size: 1.5em;
+  color: #333; /* Color del título */
+}
+
+/* Estilos de la empresa */
+.company {
+  font-weight: bold;
+  color: #50C878; /* Verde esmeralda para el nombre de la empresa */
+}
+
+/* Estilos de la ubicación */
+.location {
+  color: #6c757d; /* Color gris para la ubicación */
+}
+
+/* Estilos de la descripción */
+.description {
+  color: #495057; /* Color gris más oscuro para la descripción */
+  margin: 10px 0;
+}
+
+/* Estilos del botón de aplicar */
+.apply-button {
+  background-color: #CC5500; /* Naranja quemado para el botón */
+  color: white; /* Texto blanco */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 15px; /* Espaciado interior */
+  cursor: pointer; /* Cambiar cursor al pasar por encima */
+  transition: background-color 0.3s; /* Transición suave para el fondo */
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.apply-button:hover {
+  background-color: #FFD700; /* Amarillo dorado al pasar el mouse */
+}

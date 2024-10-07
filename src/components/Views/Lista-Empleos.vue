@@ -1,8 +1,50 @@
 <template>
   <div class="job-list">
     <h1>Lista de Empleos</h1>
+    
+    <!-- Filtros -->
+    <div class="filters">
+      <select v-model="selectedLocation" @change="filterJobs">
+        <option value="">Seleccionar Ubicación</option>
+        <option value="San Salvador">San Salvador</option>
+        <option value="Santa Ana">Santa Ana</option>
+        <option value="San Miguel">San Miguel</option>
+        <option value="La Libertad">La Libertad</option>
+        <option value="Sonsonate">Sonsonate</option>
+      </select>
+
+      <select v-model="selectedSalary" @change="filterJobs">
+        <option value="">Seleccionar Salario</option>
+        <option value="30000">Menos de $30,000</option>
+        <option value="40000">Menos de $40,000</option>
+        <option value="50000">Menos de $50,000</option>
+        <option value="60000">Más de $60,000</option>
+      </select>
+
+      <select v-model="selectedSpecialty" @change="filterJobs">
+        <option value="">Seleccionar Especialidad</option>
+        <option value="Medicina">Medicina</option>
+        <option value="Ing. Sistemas">Ing. Sistemas</option>
+        <option value="Industrial">Industrial</option>
+        <option value="Bases de Datos">Bases de Datos</option>
+        <option value="Abogado">Abogado</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Recursos Humanos">Recursos Humanos</option>
+        <option value="Arquitectura">Arquitectura</option>
+        <option value="Contabilidad">Contabilidad</option>
+        <option value="Logística">Logística</option>
+      </select>
+
+      <select v-model="selectedHours" @change="filterJobs">
+        <option value="">Seleccionar Horas</option>
+        <option value="Tiempo Completo">Tiempo Completo</option>
+        <option value="Medio Tiempo">Medio Tiempo</option>
+        <option value="Por Proyecto">Por Proyecto</option>
+      </select>
+    </div>
+
     <div class="job-container">
-      <div class="job-card" v-for="job in jobs" :key="job.id">
+      <div class="job-card" v-for="job in filteredJobs" :key="job.id">
         <h2>{{ job.title }}</h2>
         <p class="company">{{ job.company }}</p>
         <p class="location">{{ job.location }}</p>
@@ -11,6 +53,7 @@
       </div>
     </div>
   </div>
+
   <!-- Agrega el componente del footer aquí -->
   <FooterComponent />
 </template>
@@ -25,21 +68,41 @@ export default {
   },
   data() {
     return {
+      selectedLocation: '',
+      selectedSalary: '',
+      selectedSpecialty: '',
+      selectedHours: '',
       jobs: [
-        { id: 1, title: 'Vigilante de Seguridad', company: 'CECOT', location: 'Barcelona', description: 'Responsable de la seguridad de las instalaciones.' },
-        { id: 2, title: 'Desarrollador Frontend', company: 'Tech Solutions', location: 'Madrid', description: 'Desarrollo de interfaces web.' },
-        { id: 3, title: 'Analista de Datos', company: 'Data Corp', location: 'Valencia', description: 'Análisis de datos para la toma de decisiones.' },
-        { id: 4, title: 'Asistente Administrativo', company: 'Office Inc.', location: 'Sevilla', description: 'Apoyo en tareas administrativas y de oficina.' },
-        { id: 5, title: 'Ingeniero de Software', company: 'Innovatech', location: 'Bilbao', description: 'Desarrollo de soluciones de software.' },
-        { id: 6, title: 'Community Manager', company: 'Marketing Pro', location: 'Zaragoza', description: 'Gestión de redes sociales y campañas.' },
-        { id: 7, title: 'Especialista en SEO', company: 'SEO Master', location: 'Granada', description: 'Optimización de motores de búsqueda.' },
-        { id: 8, title: 'Contador', company: 'Finanzas 360', location: 'Alicante', description: 'Gestión de cuentas y finanzas.' },
-        { id: 9, title: 'Diseñador Gráfico', company: 'Creativos', location: 'Murcia', description: 'Creación de contenido visual.' },
-        { id: 10, title: 'Project Manager', company: 'Proyectos S.A.', location: 'Tarragona', description: 'Gestión y supervisión de proyectos.' },
-        { id: 11, title: 'Ventas', company: 'Comercial XYZ', location: 'Almería', description: 'Venta y promoción de productos.' },
-        { id: 12, title: 'Técnico de Soporte', company: 'Soporte 24/7', location: 'Salamanca', description: 'Atención al cliente y soporte técnico.' },
+        { id: 1, title: 'Médico General', company: 'Hospital Nacional', location: 'San Salvador', description: 'Atención médica integral a pacientes.', salary: 30000, specialty: 'Medicina', hours: 'Tiempo Completo' },
+        { id: 2, title: 'Desarrollador Backend', company: 'Innovatech', location: 'Santa Ana', description: 'Desarrollo de aplicaciones web.', salary: 40000, specialty: 'Ing. Sistemas', hours: 'Tiempo Completo' },
+        { id: 3, title: 'Ingeniero Industrial', company: 'Proyectos Industriales', location: 'San Miguel', description: 'Optimización de procesos industriales.', salary: 35000, specialty: 'Industrial', hours: 'Tiempo Completo' },
+        { id: 4, title: 'Abogado Corporativo', company: 'Legal & Co.', location: 'La Libertad', description: 'Asesoría legal a empresas.', salary: 50000, specialty: 'Abogado', hours: 'Medio Tiempo' },
+        { id: 5, title: 'Analista de Bases de Datos', company: 'Data Solutions', location: 'San Salvador', description: 'Mantenimiento de bases de datos.', salary: 38000, specialty: 'Bases de Datos', hours: 'Tiempo Completo' },
+        { id: 6, title: 'Community Manager', company: 'Marketing Pro', location: 'Sonsonate', description: 'Gestión de redes sociales.', salary: 32000, specialty: 'Marketing', hours: 'Medio Tiempo' },
+        { id: 7, title: 'Especialista en Recursos Humanos', company: 'HR Solutions', location: 'San Salvador', description: 'Gestión del talento humano.', salary: 30000, specialty: 'Recursos Humanos', hours: 'Tiempo Completo' },
+        { id: 8, title: 'Arquitecto de Software', company: 'Tech Architects', location: 'San Salvador', description: 'Diseño y desarrollo de software escalable.', salary: 55000, specialty: 'Ing. Sistemas', hours: 'Tiempo Completo' },
+        { id: 9, title: 'Contador Público', company: 'Cuentas Claras', location: 'San Miguel', description: 'Gestión de cuentas y auditoría.', salary: 38000, specialty: 'Contabilidad', hours: 'Tiempo Completo' },
+        { id: 10, title: 'Coordinador de Logística', company: 'Logística y Más', location: 'Santa Ana', description: 'Planificación y ejecución de la cadena de suministro.', salary: 42000, specialty: 'Logística', hours: 'Medio Tiempo' },
+        { id: 11, title: 'Técnico en Redes', company: 'Redes Seguras', location: 'La Libertad', description: 'Mantenimiento y optimización de redes.', salary: 30000, specialty: 'Ing. Sistemas', hours: 'Por Proyecto' },
+        { id: 12, title: 'Asistente de Ventas', company: 'Ventas Rápidas', location: 'Sonsonate', description: 'Soporte al equipo de ventas y atención al cliente.', salary: 25000, specialty: 'Marketing', hours: 'Tiempo Completo' },
       ],
+      filteredJobs: [], // Lista de trabajos filtrados
     };
+  },
+  created() {
+    this.filteredJobs = this.jobs; // Inicializa los trabajos filtrados
+  },
+  methods: {
+    filterJobs() {
+      this.filteredJobs = this.jobs.filter(job => {
+        const matchesLocation = this.selectedLocation ? job.location === this.selectedLocation : true;
+        const matchesSalary = this.selectedSalary ? job.salary < parseInt(this.selectedSalary) : true;
+        const matchesSpecialty = this.selectedSpecialty ? job.specialty === this.selectedSpecialty : true;
+        const matchesHours = this.selectedHours ? job.hours === this.selectedHours : true;
+
+        return matchesLocation && matchesSalary && matchesSpecialty && matchesHours;
+      });
+    },
   },
 }
 </script>

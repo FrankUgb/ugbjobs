@@ -1,8 +1,10 @@
 <template>
   <nav class="navbar">
     <div class="navbar-container">
-      <!-- Imagen a la izquierda -->
-      <img src="../assets/Img/logo1.png" alt="Descripción de la imagen" class="navbar-image" />
+      <!-- Imagen como enlace al inicio -->
+      <router-link to="/">
+        <img src="../assets/Img/logo1.png" alt="Descripción de la imagen" class="navbar-image" />
+      </router-link>
       <div class="navbar-links">
         <ul class="navbar-menu">
           <li><router-link to="/">Inicio</router-link></li>
@@ -38,13 +40,13 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #4B4B4B;
-  background-color: #D3D3D3; /* Fondo gris claro */
+  color: #333333; /* Gris oscuro para el texto */
+  background-color: #D3D3D3; /* Gris claro para el fondo de la página */
 }
 
 .navbar {
   background-color: #50C878; /* Verde esmeralda */
-  padding: 10px 20px; /* Espaciado horizontal */
+  padding: 10px 20px;
   color: white;
 }
 
@@ -76,11 +78,11 @@ html, body {
   color: #333333; /* Gris oscuro para el texto */
   text-decoration: none; /* Sin subrayado */
   transition: opacity 0.3s;
-  padding: 10px 0; /* Ajuste para que no tenga espaciado horizontal */
+  padding: 10px 0;
 }
 
 .navbar-menu a:hover {
-  color: #ffffff; /* Naranja quemado al pasar el mouse */
+  color: #CC5500; /* Naranja quemado al pasar el mouse */
   opacity: 0.8; /* Efecto de opacidad al pasar el mouse */
 }
 
@@ -94,20 +96,20 @@ html, body {
   background-color: #FFD700; /* Amarillo dorado para los botones */
   color: #1C1C1C; /* Negro carbón para el texto */
   border-radius: 5px; /* Bordes redondeados */
-  padding: 10px 15px; /* Espaciado interno */
-  text-decoration: none; /* Sin subrayado */
-  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+  padding: 10px 15px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .auth-button:hover {
-  background-color: #C65D2D; /* Naranja quemado al pasar el mouse */
+  background-color: #CC5500; /* Naranja quemado al pasar el mouse */
   color: white; /* Texto blanco al pasar el mouse */
-  transform: scale(1.05); /* Escala al pasar el mouse */
+  transform: scale(1.05);
 }
 
 /* Acentos para detalles */
 .accent {
-  color: #FFD700;
+  color: #FFD700; /* Amarillo dorado */
 }
 
 /* Secciones oscuras */

@@ -3,64 +3,77 @@
     <header class="job-header">
       <h1>Vigilante del CECOT</h1>
       <p class="company-name">Centro Del Confinamiento de Terrorismo CECOT</p>
-      <p class="job-location">Ubicación: Santa Ana, El Salvador</p>
-      <p class="job-type">Tipo de empleo: Tiempo completo</p>
+      <div class="job-info">
+        <span class="job-location">Ubicación: Santa Ana, El Salvador</span>
+        <span class="job-type">Tipo de empleo: Tiempo completo</span>
+      </div>
     </header>
 
     <section class="job-description">
       <h2>Descripción del Puesto</h2>
       <p>
         Como Vigilante del CECOT, serás responsable de la seguridad y el bienestar de
-        las instalaciones. Tu papel es esencial para garantizar un entorno seguro
-        para estudiantes y personal.
+        las instalaciones, garantizando un entorno seguro para estudiantes y personal.
       </p>
     </section>
 
     <section class="job-requirements">
       <h2>Requisitos</h2>
       <ul>
-        <li>Experiencia previa en seguridad o roles similares.</li>
+        <li>Experiencia en seguridad.</li>
         <li>Certificación en primeros auxilios.</li>
-        <li>Disponibilidad para trabajar en turnos rotativos.</li>
-        <li>Excelentes habilidades de comunicación.</li>
+        <li>Disponibilidad para turnos rotativos.</li>
+        <li>Buenas habilidades de comunicación.</li>
       </ul>
     </section>
+
 
     <section class="job-benefits">
       <h2>Beneficios</h2>
       <ul>
-        <li>Salario competitivo.</li>
-        <li>Oportunidades de formación continua.</li>
+        <li>Salario: $1,200 - $1,500/mes.</li>
+        <li>Formación continua.</li>
         <li>Seguro médico y de vida.</li>
-        <li>Ambiente de trabajo colaborativo.</li>
+        <li>Turnos rotativos de 8 horas.</li>
+        <li>Ambiente colaborativo.</li>
       </ul>
     </section>
 
     <section class="application-form">
       <h2>Formulario de Solicitud</h2>
       <form @submit.prevent="submitApplication">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" v-model="applicant.name" required />
+        <div class="input-group">
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" v-model="applicant.name" placeholder="Ingresa tu nombre" required />
+        </div>
 
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" v-model="applicant.email" required />
+        <div class="input-group">
+          <label for="email">Correo Electrónico:</label>
+          <input type="email" id="email" v-model="applicant.email" placeholder="Ingresa tu correo electrónico" required />
+        </div>
 
-        <label for="resume">Currículum (opcional):</label>
-        <input type="file" id="resume" @change="handleFileUpload" />
+        <div class="input-group">
+          <label for="resume">Currículum (opcional):</label>
+          <input type="file" id="resume" @change="handleFileUpload" />
+        </div>
 
         <button type="submit">Enviar Solicitud</button>
       </form>
     </section>
   </div>
 
-  
+<!-- Footer -->
+<FooterComponent /> <!-- Componente de Footer agregado aquí -->
 </template>
 
 <script>
-import '../../assets/Css/Trabajo.css';
+import FooterComponent from '@/components/FooterComponent.vue'; // Importa el componente Footer
 
 export default {
   name: 'EmpleoPage',
+  components: {
+    FooterComponent, // Asegúrate de registrar el componente aquí
+  },
   data() {
     return {
       applicant: {
@@ -75,88 +88,13 @@ export default {
       this.applicant.resume = event.target.files[0];
     },
     submitApplication() {
-      // Lógica para enviar la solicitud
       console.log('Solicitud enviada:', this.applicant);
-      // Aquí puedes agregar la lógica para enviar la información a un servidor
+      this.resetForm();
+    },
+    resetForm() {
+      this.applicant = { name: '', email: '', resume: null };
     },
   },
 }
 </script>
-
-<style scoped>
-.job-details {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.job-header {
-  text-align: center;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #50C878; /* Verde esmeralda */
-}
-
-.company-name {
-  font-weight: bold;
-  font-size: 1.2em;
-  color: #4B4B4B;
-}
-
-.job-location,
-.job-type {
-  font-size: 0.9em;
-  color: #777;
-}
-
-.job-description,
-.job-requirements,
-.job-benefits,
-.application-form {
-  margin: 20px 0;
-}
-
-h2 {
-  border-bottom: 2px solid #50C878;
-  padding-bottom: 5px;
-  color: #50C878;
-}
-
-ul {
-  list-style-type: disc;
-  padding-left: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  margin: 10px 0 5px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="file"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-button {
-  padding: 10px;
-  background-color: #50C878;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45b369; /* Un poco más oscuro al pasar el mouse */
-}
-</style>
+<style src="../../assets/Css/Trabajo.css"></style>
