@@ -3,9 +3,17 @@
     <div class="navbar-container">
       <!-- Imagen como enlace al inicio -->
       <router-link to="/">
-        <img src="../assets/Img/logo1.png" alt="Descripción de la imagen" class="navbar-image" />
+        <img src="../assets/Img/logo2.png" alt="Descripción de la imagen" class="navbar-image" />
       </router-link>
-      <div class="navbar-links">
+
+      <!-- Icono de hamburguesa -->
+      <div class="hamburger" @click="toggleMenu">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+
+      <div :class="['navbar-links', { 'active': menuActive }]">
         <ul class="navbar-menu">
           <li><router-link to="/">Inicio</router-link></li>
           <li><router-link to="/trabajo">Empleos</router-link></li>
@@ -24,11 +32,21 @@
 
 <script>
 export default {
-  name: 'NavbarComponent' // Cambia el nombre aquí
-}
+  name: 'NavbarComponent',
+  data() {
+    return {
+      menuActive: false,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.menuActive = !this.menuActive;
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
 html, body {
   margin: 0;
   padding: 0;
@@ -48,73 +66,119 @@ html, body {
   background-color: #50C878; /* Verde esmeralda */
   padding: 10px 20px;
   color: white;
+  position: relative;
 }
 
 .navbar-container {
   display: flex;
-  justify-content: space-between; /* Mantiene la imagen a la izquierda y los enlaces a la derecha */
+  justify-content: space-between;
   align-items: center;
 }
 
 .navbar-image {
-  height: 50px; /* Ajusta la altura de la imagen según sea necesario */
-  margin-right: 10px; /* Espacio entre la imagen y el menú */
+  height: 50px;
+  margin-right: 10px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger .line {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  margin: 3px 0;
 }
 
 .navbar-links {
   display: flex;
-  justify-content: space-between; /* Espacio entre los enlaces y los botones de autenticación */
+  justify-content: space-between;
   align-items: center;
-  flex-grow: 1; /* Para que ocupe el espacio restante */
+  flex-grow: 1;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.navbar-links.active {
+  display: flex;
 }
 
 .navbar-menu {
   list-style: none;
   display: flex;
-  gap: 15px; /* Espacio entre los enlaces */
+  gap: 15px;
 }
 
 .navbar-menu a {
-  color: #333333; /* Gris oscuro para el texto */
-  text-decoration: none; /* Sin subrayado */
+  color: #FFFFFF;
+  text-decoration: none;
   transition: opacity 0.3s;
   padding: 10px 0;
 }
 
 .navbar-menu a:hover {
-  color: #CC5500; /* Naranja quemado al pasar el mouse */
-  opacity: 0.8; /* Efecto de opacidad al pasar el mouse */
+  color: #CC5500; /* Naranja quemado */
+  opacity: 0.8;
 }
 
-/* Estilos para los botones de Registro e Iniciar Sesión */
 .auth-buttons {
-  display: flex; /* Mantiene los botones uno al lado del otro */
-  gap: 10px; /* Espacio entre los botones */
+  display: flex;
+  gap: 10px;
 }
 
 .auth-button {
-  background-color: #FFD700; /* Amarillo dorado para los botones */
-  color: #1C1C1C; /* Negro carbón para el texto */
-  border-radius: 5px; /* Bordes redondeados */
+  background-color: #FFD700; /* Amarillo dorado */
+  color: #1C1C1C; /* Negro carbón */
+  border-radius: 5px;
   padding: 10px 15px;
   text-decoration: none;
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .auth-button:hover {
-  background-color: #CC5500; /* Naranja quemado al pasar el mouse */
-  color: white; /* Texto blanco al pasar el mouse */
+  background-color: #CC5500; /* Naranja quemado */
+  color: white;
   transform: scale(1.05);
 }
 
-/* Acentos para detalles */
-.accent {
-  color: #FFD700; /* Amarillo dorado */
+@media (max-width: 768px) {
+  .navbar-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #50C878; /* Verde esmeralda */
+    display: none;
+    flex-direction: column;
+    width: 200px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .navbar-links.active {
+    display: flex;
+    max-height: 300px;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }
 
-/* Secciones oscuras */
+.accent {
+  color: #FFD700;
+}
+
 .footer {
-  background-color: #1C1C1C; /* Negro carbón */
+  background-color: #1C1C1C;
   color: white;
   padding: 10px;
 }

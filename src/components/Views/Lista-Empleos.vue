@@ -15,10 +15,10 @@
 
       <select v-model="selectedSalary" @change="filterJobs">
         <option value="">Seleccionar Salario</option>
-        <option value="30000">Menos de $30,000</option>
-        <option value="40000">Menos de $40,000</option>
-        <option value="50000">Menos de $50,000</option>
-        <option value="60000">Más de $60,000</option>
+        <option value="300">Menos de $300</option>
+        <option value="350-500">$350 - $500</option>
+        <option value="550-600">$550 - $600</option>
+        <option value="600">Más de $600</option>
       </select>
 
       <select v-model="selectedSpecialty" @change="filterJobs">
@@ -48,7 +48,7 @@
         <h2>{{ job.title }}</h2>
         <p class="company">{{ job.company }}</p>
         <p class="location">{{ job.location }}</p>
-        <p class="description">{{ job.description }}</p>
+        <p class="salary">Salario: ${{ job.salary }}</p>
         <button class="apply-button">Aplicar</button>
       </div>
     </div>
@@ -59,12 +59,14 @@
 </template>
 
 <script>
+import { getFirestore, collection, getDocs } from "firebase/firestore"; // Importar Firestore
+import { app } from '@/firebase'; // Asegúrate de que esta ruta sea correcta
 import FooterComponent from '@/components/FooterComponent.vue'; // Asegúrate de que la ruta sea correcta
 
 export default {
   name: 'TrabajoDetalle',
   components: {
-    FooterComponent, // Registra el componente
+    FooterComponent,
   },
   data() {
     return {
@@ -72,31 +74,48 @@ export default {
       selectedSalary: '',
       selectedSpecialty: '',
       selectedHours: '',
-      jobs: [
-        { id: 1, title: 'Médico General', company: 'Hospital Nacional', location: 'San Salvador', description: 'Atención médica integral a pacientes.', salary: 30000, specialty: 'Medicina', hours: 'Tiempo Completo' },
-        { id: 2, title: 'Desarrollador Backend', company: 'Innovatech', location: 'Santa Ana', description: 'Desarrollo de aplicaciones web.', salary: 40000, specialty: 'Ing. Sistemas', hours: 'Tiempo Completo' },
-        { id: 3, title: 'Ingeniero Industrial', company: 'Proyectos Industriales', location: 'San Miguel', description: 'Optimización de procesos industriales.', salary: 35000, specialty: 'Industrial', hours: 'Tiempo Completo' },
-        { id: 4, title: 'Abogado Corporativo', company: 'Legal & Co.', location: 'La Libertad', description: 'Asesoría legal a empresas.', salary: 50000, specialty: 'Abogado', hours: 'Medio Tiempo' },
-        { id: 5, title: 'Analista de Bases de Datos', company: 'Data Solutions', location: 'San Salvador', description: 'Mantenimiento de bases de datos.', salary: 38000, specialty: 'Bases de Datos', hours: 'Tiempo Completo' },
-        { id: 6, title: 'Community Manager', company: 'Marketing Pro', location: 'Sonsonate', description: 'Gestión de redes sociales.', salary: 32000, specialty: 'Marketing', hours: 'Medio Tiempo' },
-        { id: 7, title: 'Especialista en Recursos Humanos', company: 'HR Solutions', location: 'San Salvador', description: 'Gestión del talento humano.', salary: 30000, specialty: 'Recursos Humanos', hours: 'Tiempo Completo' },
-        { id: 8, title: 'Arquitecto de Software', company: 'Tech Architects', location: 'San Salvador', description: 'Diseño y desarrollo de software escalable.', salary: 55000, specialty: 'Ing. Sistemas', hours: 'Tiempo Completo' },
-        { id: 9, title: 'Contador Público', company: 'Cuentas Claras', location: 'San Miguel', description: 'Gestión de cuentas y auditoría.', salary: 38000, specialty: 'Contabilidad', hours: 'Tiempo Completo' },
-        { id: 10, title: 'Coordinador de Logística', company: 'Logística y Más', location: 'Santa Ana', description: 'Planificación y ejecución de la cadena de suministro.', salary: 42000, specialty: 'Logística', hours: 'Medio Tiempo' },
-        { id: 11, title: 'Técnico en Redes', company: 'Redes Seguras', location: 'La Libertad', description: 'Mantenimiento y optimización de redes.', salary: 30000, specialty: 'Ing. Sistemas', hours: 'Por Proyecto' },
-        { id: 12, title: 'Asistente de Ventas', company: 'Ventas Rápidas', location: 'Sonsonate', description: 'Soporte al equipo de ventas y atención al cliente.', salary: 25000, specialty: 'Marketing', hours: 'Tiempo Completo' },
-      ],
-      filteredJobs: [], // Lista de trabajos filtrados
+      jobs: [],
+      filteredJobs: [],
     };
   },
   created() {
-    this.filteredJobs = this.jobs; // Inicializa los trabajos filtrados
+    this.fetchJobs(); // Llama a la función para obtener empleos desde Firestore
   },
   methods: {
+    async fetchJobs() {
+      const db = getFirestore(app);
+      const jobsCollection = collection(db, "Empleo");
+      const jobSnapshot = await getDocs(jobsCollection);
+      this.jobs = jobSnapshot.docs.map(doc => ({
+        id: doc.id,
+        title: doc.data().Titulo,
+        company: doc.data().Compañía,
+        location: doc.data().Ubicacion,
+        salary: doc.data().Salario,
+        specialty: doc.data().Especialidad,
+        hours: doc.data().Horas,
+      }));
+      this.filteredJobs = this.jobs;
+    },
     filterJobs() {
       this.filteredJobs = this.jobs.filter(job => {
         const matchesLocation = this.selectedLocation ? job.location === this.selectedLocation : true;
-        const matchesSalary = this.selectedSalary ? job.salary < parseInt(this.selectedSalary) : true;
+        
+        // Nueva lógica de filtro para el salario
+        let matchesSalary = true;
+        if (this.selectedSalary) {
+          const salaryValue = job.salary; // Obtiene el salario del trabajo
+          if (this.selectedSalary === "300") {
+            matchesSalary = salaryValue < 300;
+          } else if (this.selectedSalary === "350-500") {
+            matchesSalary = salaryValue >= 350 && salaryValue <= 500;
+          } else if (this.selectedSalary === "550-600") {
+            matchesSalary = salaryValue >= 550 && salaryValue <= 600;
+          } else if (this.selectedSalary === "600") {
+            matchesSalary = salaryValue > 600;
+          }
+        }
+
         const matchesSpecialty = this.selectedSpecialty ? job.specialty === this.selectedSpecialty : true;
         const matchesHours = this.selectedHours ? job.hours === this.selectedHours : true;
 

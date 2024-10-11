@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="cv-container" ref="cvContent">
     <header class="header">
       <h1>Currículum Vitae</h1>
@@ -9,52 +9,55 @@
       <img :src="profilePhoto" alt="Profile Picture" class="profile-photo" v-if="profilePhoto">
     </div>
 
-    <div class="basic-info-section section">
+    <section class="section basic-info-section">
+      <h2>Información Básica</h2>
       <label for="fullName">Nombre Completo:</label>
       <input v-model="fullName" id="fullName" type="text" placeholder="Ingrese su nombre completo" class="plain-input" />
       
       <label for="email">Correo de Contacto:</label>
       <input v-model="email" id="email" type="email" placeholder="Ingrese su correo electrónico" class="plain-input" />
-    </div>
+    </section>
 
-    <div class="academic-section section">
+    <section class="section academic-section">
+      <h2>Información Académica</h2>
       <label for="academicProgress">Progreso Académico:</label>
       <input v-model="academicProgress" id="academicProgress" type="text" placeholder="Ingrese su progreso académico" class="plain-input" />
       
       <label for="cum">CUM:</label>
       <input v-model="cum" id="cum" type="text" placeholder="Ingrese su CUM" class="plain-input" />
-    </div>
+    </section>
 
-    <div class="professional-section section">
-      <label for="professionalGoal">Objetivo Profesional:</label>
+    <section class="section professional-section">
+      <h2>Objetivo Profesional</h2>
+      <label for="professionalGoal">Escriba su objetivo profesional:</label>
       <textarea v-model="professionalGoal" id="professionalGoal" placeholder="Escriba su objetivo profesional" class="plain-textarea"></textarea>
-    </div>
+    </section>
 
-    <div class="skills-section section">
+    <section class="section skills-section">
+      <h2>Habilidades</h2>
       <label for="technicalSkills">Habilidades Técnicas:</label>
       <input v-model="technicalSkills" id="technicalSkills" placeholder="Ingrese sus habilidades técnicas (separar con comas)" class="plain-input" />
 
       <label for="softSkills">Habilidades Blandas:</label>
       <input v-model="softSkills" id="softSkills" placeholder="Ingrese sus habilidades blandas (separar con comas)" class="plain-input" />
-    </div>
+    </section>
 
     <div class="buttons">
       <button @click="handleSaveCv" class="cta-button">Guardar Currículum</button>
       <button @click="downloadPdf" class="cta-button">Descargar como PDF</button>
     </div>
-  </div>
-   <!-- Agrega el componente del footer aquí -->
-   <FooterComponent />
+  </div><br>
+  <FooterComponent />
 </template>
 
 <script>
 import html2pdf from 'html2pdf.js';
-import FooterComponent from '@/components/FooterComponent.vue'; // Asegúrate de que la ruta sea correcta
+import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
-  name: 'MiCurriculum',  
+  name: 'MiCurriculum',
   components: {
-    FooterComponent, // Registra el componente
+    FooterComponent,
   },
   data() {
     return {
@@ -88,14 +91,14 @@ export default {
 
 <style scoped>
 .cv-container {
-  background-color: #e0e0e0; /* Fondo gris claro */
+  background-color: #D3D3D3; /* Gris claro para el fondo del contenedor */
   padding: 20px;
   border-radius: 10px;
   max-width: 700px;
   margin: auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-family: 'Arial', sans-serif;
-  color: #333; /* Texto gris oscuro */
+  color: #333333; /* Gris oscuro para el texto */
 }
 
 .header {
@@ -104,7 +107,7 @@ export default {
 }
 
 h1 {
-  color: #2ecc71; /* Verde esmeralda */
+  color: #005521; /* Azul oscuro para el título */
 }
 
 .profile-section {
@@ -117,47 +120,54 @@ h1 {
 }
 
 .profile-photo {
-  width: 100px; /* Tamaño ajustado */
-  height: 100px; /* Tamaño ajustado */
+  width: 100px; 
+  height: 100px; 
   border-radius: 50%;
-  border: 2px solid #2ecc71; /* Verde esmeralda */
+  border: 3px solid #50C878; /* Verde esmeralda */
   margin-top: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.plain-input, .plain-textarea {
+.plain-input,
+.plain-textarea {
   display: block;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
   padding: 10px;
-  border: none;
-  border-bottom: 1px solid #ccc; /* Solo borde inferior */
-  width: 100%;
+  border: 1px solid #CCCCCC; /* Gris claro para los bordes */
+  border-radius: 5px;
+  width: calc(100% - 22px); /* Ajusta el ancho para el padding y el borde */
   font-size: 14px;
-  background-color: transparent; /* Fondo transparente */
-  color: #333; /* Texto gris oscuro */
+  background-color: #FFFFFF; /* Blanco para el fondo de los inputs */
+  color: #333333; /* Gris oscuro para el texto */
 }
 
-.plain-input:focus, .plain-textarea:focus {
-  outline: none; /* Sin contorno */
-  border-bottom-color: #2ecc71; /* Verde esmeralda en el borde inferior */
+.plain-input:focus,
+.plain-textarea:focus {
+  outline: none;
+  border-color: #59e487; /* Azul oscuro al enfocar */
 }
 
 .plain-textarea {
-  resize: none; /* Sin opción de redimensionar */
+  resize: none;
+  min-height: 100px;
 }
 
 label {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-top: 10px; /* Espacio superior para separar del elemento anterior */
+  margin-bottom: 5px; /* Espacio inferior para separar del campo */
   display: block;
+  color: #1C1C1C; /* Negro carbón */
 }
 
 .section {
-  border: 1px solid #2ecc71; /* Verde esmeralda */
+  border: 1px solid #50C878; /* Verde esmeralda */
   border-radius: 5px;
-  padding: 15px; /* Espaciado interno */
-  margin-bottom: 20px; /* Espaciado entre secciones */
-  background-color: #ffffff; /* Fondo blanco para secciones */
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #FFFFFF; /* Blanco para el fondo de cada sección */
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
 .buttons {
@@ -167,8 +177,8 @@ label {
 }
 
 .cta-button {
-  background-color: #e67e22; /* Naranja quemado */
-  color: white;
+  background-color: #CC5500; /* Naranja quemado */
+  color: #FFFFFF;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -183,7 +193,7 @@ label {
 }
 
 .cta-button:hover {
-  background-color: #d35400; /* Naranja más oscuro */
-  transform: scale(1.03);
+  background-color: #FFD700; /* Amarillo dorado al pasar el mouse */
+  transform: scale(1.05);
 }
 </style>

@@ -44,15 +44,15 @@
         </div>
       </div>
     </div>
+    <br>
 
     <!-- Carrusel de Imágenes -->
     <ImageCarousel />
-
+    <br>
     <!-- Footer -->
-    <FooterComponent /> <!-- Componente de Footer agregado aquí -->
+    <FooterComponent />
   </div>
 </template>
-
 
 <script>
 import ImageCarousel from './ImageCarousel.vue'; // Asegúrate de que la ruta es correcta
@@ -68,4 +68,3 @@ export default {
   },
 };
 </script>
-

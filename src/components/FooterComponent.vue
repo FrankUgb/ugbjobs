@@ -53,7 +53,7 @@ export default {
 .footer-area {
   background-color: #1C1C1C; /* Negro carbón */
   color: #D3D3D3; /* Gris claro */
-  padding: 20px 0; /* Menos espaciado para que sea más angosto */
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,28 +61,30 @@ export default {
 
 .footer-container {
   display: flex;
-  align-items: center; /* Alinear verticalmente */
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  max-width: 1200px; /* Ajusta el ancho máximo si es necesario */
+  max-width: 1200px;
   flex-wrap: wrap;
+  padding: 0 15px;
 }
 
 .footer-column {
   flex: 1;
-  min-width: 150px; /* Ajustar mínimo para ser más compacto */
-  margin: 10px; /* Menos margen para un diseño más compacto */
+  min-width: 150px;
+  margin: 10px;
 }
 
 .footer-image {
-  height: 80px; /* Ajustada a 80px para ser más grande */
-  margin-right: 20px; /* Espacio a la derecha del logo */
+  height: 80px;
+  margin-right: 20px;
 }
 
 h5 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
+  color: #FFD700; /* Amarillo dorado para los encabezados */
 }
 
 p,
@@ -94,16 +96,17 @@ li {
 }
 
 .footer-link {
-  color: #FFD700; /* Amarillo dorado */
+  color: #50C878; /* Verde esmeralda */
   text-decoration: none;
 }
 
 .footer-link:hover {
-  text-decoration: underline; /* Subrayado al pasar el mouse */
+  color: #CC5500; /* Naranja quemado al pasar el mouse */
+  text-decoration: underline;
 }
 
 .footer-bottom {
-  border-top: 1px solid #D3D3D3; /* Gris claro */
+  border-top: 1px solid #333333; /* Gris oscuro */
   padding: 20px 0;
   text-align: center;
   font-size: 14px;

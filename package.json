@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "express": "^4.21.0",
-    "firebase": "^10.13.2",
+    "firebase": "^10.14.1",
     "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.2",
     "vue": "^3.2.13",
