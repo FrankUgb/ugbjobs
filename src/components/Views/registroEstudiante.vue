@@ -2,7 +2,7 @@
   <div class="formulario-contenedor">
     <div class="barra_azul">REGISTRO ESTUDIANTE</div>
     <img src="@/assets/Img/logoJobsUGB.png" alt="Logo UGB" style="display: block; margin: 0 auto;">
-    <form @submit.prevent="validarContrasena">
+    <form @submit.prevent="registrarEstudiante">
       <label for="nombre_completo">Nombre Completo:</label>
       <input type="text" id="nombre_completo" v-model="nombreCompleto" required>
 
@@ -39,12 +39,15 @@
 
       <li><router-link to="/">Inicio</router-link></li>
     </form>
-
-    
   </div>
 </template>
 
 <script>
+import { auth } from "@/firebase";  // Importa la configuración de Firebase
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase";
+
 export default {
   data() {
     return {
@@ -63,24 +66,45 @@ export default {
         "Ciencia y tecnologia": ["Ingenieria en inteligencia de negocios (virtual)", "Ingenieria en desarrollo de software (virtual)", "Ingenieria en sistemas y redes informaticas (virtual)", "Tecnico en ingenieria en sistemas y redes informaticas (virtual)", "Ingenieria en inteligencia de negocios (semipresencial)", "Ingenieria en sistemas y redes informaticas (semipresencial)", "Tecnico en ingenieria en sistemas y redes informaticas (semipresencial)"],
         "Ciencias y humanidades": ["Tecnico en idioma ingles (Virtual)", "Licenciatura en comunicaciones (semipresencial)", "Licenciatura en idioma ingles (presencial)", "Profesorado en matematica, para tercer ciclo de educacion basica y media (presencial)", "Profesorado en lenguaje y literatura para tercer ciclo de educacion basica y media (presencial)", "Profesorado en idioma ingles para tercer ciclo de educacion basica y media (presencial)"],
         "Ingenieria y arquitectura": ["Tecnico en ingenieria industrial (virtual)", "Ingenieria industrial (virtual)", "Arquitectura (semipresencial)", "Tecnico en ingenieria civil y construccion (semipresencial)", "Ingenieria civil (semipresencial)", "Ingenieria industrial (semipresencial)", "Ingenieria agroindustrial (semipresencial)"]
-      }
+      },
     };
   },
   methods: {
-    validarContrasena() {
+    actualizarCarreras() {
+      this.opcionesCarreras = this.carrerasPorFacultad[this.facultad] || [];
+    },
+    async registrarEstudiante() {
       if (this.contrasena !== this.confirmarContrasena) {
         alert("Las contraseñas no coinciden.");
         return;
       }
-      this.$router.push('/'); // Redirigir usando Vue Router
-    },
-    actualizarCarreras() {
-      this.opcionesCarreras = this.carrerasPorFacultad[this.facultad] || [];
+
+      try {
+        const email = `${this.carnet}@ugbedu.com`;  // Usamos el carnet como parte del email
+        const userCredential = await createUserWithEmailAndPassword(auth, email, this.contrasena);
+        const user = userCredential.user;
+
+        // Guardar información adicional del estudiante en Firestore
+        await setDoc(doc(db, "estudiantes", user.uid), {
+          nombreCompleto: this.nombreCompleto,
+          carnet: this.carnet,
+          fechaNacimiento: this.fechaNacimiento,
+          facultad: this.facultad,
+          carrera: this.carrera,
+          email: email,
+        });
+
+        console.log("Estudiante registrado con éxito:", user);
+        window.location.href = "../loginEstudiante.html";  // Redirigir al login
+      } catch (error) {
+        console.error("Error en el registro:", error.message);
+        alert("Hubo un error al registrar el estudiante.");
+      }
     }
   }
 };
 </script>
 
 <style scoped>
-@import "@/assets/Css/registroEstudiante.css";
+@import url('../../../public/css/registroEstudiante.css');
 </style>
