@@ -6,7 +6,7 @@
 
     <div class="profile-section">
       <input type="file" @change="handleFileChange" class="file-input" />
-      <img :src="profilePhoto" alt="Profile Picture" class="profile-photo" v-if="profilePhoto">
+      <img :src="profilePhoto" alt="Profile Picture" class="profile-photo" v-if="profilePhoto" />
     </div>
 
     <section class="section basic-info-section">
@@ -51,6 +51,9 @@
 </template>
 
 <script>
+// Importar Firebase y Firestore
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/firebase.js"; // Asegúrate de que la ruta esté correcta
 import html2pdf from 'html2pdf.js';
 import FooterComponent from '@/components/FooterComponent.vue';
 
@@ -72,13 +75,31 @@ export default {
     };
   },
   methods: {
-    handleSaveCv() {
-      alert('Currículum guardado');
+    // Guardar datos en Firebase Firestore
+    async handleSaveCv() {
+      try {
+        // Guardar la información del currículum en Firebase
+        const docRef = await addDoc(collection(db, "curriculums"), {
+          fullName: this.fullName,
+          email: this.email,
+          academicProgress: this.academicProgress,
+          cum: this.cum,
+          professionalGoal: this.professionalGoal,
+          technicalSkills: this.technicalSkills,
+          softSkills: this.softSkills,
+          profilePhoto: this.profilePhoto
+        });
+        alert(`Currículum guardado con ID: ${docRef.id}`);
+      } catch (e) {
+        console.error("Error al guardar el currículum: ", e);
+      }
     },
+    
     handleFileChange(e) {
       const file = e.target.files[0];
       this.profilePhoto = URL.createObjectURL(file);
     },
+    
     downloadPdf() {
       const element = this.$refs.cvContent;
       html2pdf()

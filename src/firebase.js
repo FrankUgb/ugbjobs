@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore"; // Agregar Firestore
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,3 +16,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 console.log('Firebase app initialized:', app); // Usar `app` para evitar el warning
+
+// Initialize Firestore
+const db = getFirestore(app);
+
+export { db };
