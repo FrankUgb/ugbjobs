@@ -36,7 +36,7 @@ html, body {
 .job-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; /* Espaciado uniforme entre las tarjetas */
 }
 
 .job-card {
@@ -46,6 +46,7 @@ html, body {
   padding: 20px;
   margin: 10px;
   width: calc(25% - 20px); /* 4 elementos por fila */
+  min-width: 250px; /* Ancho mínimo para evitar que se vuelvan angostas */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
 }
@@ -85,4 +86,47 @@ html, body {
 
 .apply-button:hover {
   background-color: #50C878; /* Verde esmeralda */
+}
+
+.job-icon {
+  width: 60px;  /* Aumenté un poco el tamaño para que sea más visible */
+  height: 60px; /* Aumento en la altura */
+  object-fit: contain; /* Asegura que el ícono no se distorsione */
+  border-radius: 50%; /* Bordes completamente redondeados para un aspecto más limpio */
+  margin-bottom: 15px; /* Espaciado para que no se pegue al texto */
+  border: 2px solid #50C878; /* Borde verde esmeralda que hace juego con la paleta de colores */
+  padding: 8px; /* Aumento el padding para un borde más grueso */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+  transition: transform 0.2s, box-shadow 0.2s; /* Transición suave al pasar el mouse */
+}
+
+.job-icon:hover {
+  transform: scale(1.1); /* Al pasar el mouse, el ícono se agranda un poco */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más prominente al pasar el mouse */
+}
+
+.view-job-button {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #50C878; /* Verde esmeralda */
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  margin-top: 15px;
+  border: none;
+  text-align: center;
+}
+
+.view-job-button:hover {
+  background-color: #CC5500; /* Naranja quemado */
+  transform: translateY(-3px); /* Levanta ligeramente el botón */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar efecto de profundidad */
+}
+
+.view-job-button:active {
+  background-color: #333333; /* Gris oscuro */
+  transform: translateY(0); /* Sin elevación al presionar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
 }

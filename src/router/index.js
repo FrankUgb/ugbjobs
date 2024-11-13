@@ -45,8 +45,12 @@ const routes = [
     path: '/footer',
     name: 'FooterComponent',
     component: () => import('../components/FooterComponent.vue') // Lazy loading
-  }  
-  
+  },
+  {
+    path: '/empleo/:id',
+    name: 'TrabajoDetalle',
+    component: () => import('../components/Views/TrabajoDetalle.vue')
+  }
 ];
 
 const router = createRouter({

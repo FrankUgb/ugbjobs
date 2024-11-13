@@ -66,5 +66,9 @@ export default {
     ImageCarousel, // Registrar el componente del carrusel
     FooterComponent, // Registrar el componente del footer aquí
   },
+  mounted() {
+    // Esto asegura que la página se desplace hacia arriba cuando se carga.
+    window.scrollTo(0, 0);
+  }
 };
 </script>

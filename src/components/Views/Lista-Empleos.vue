@@ -1,7 +1,7 @@
 <template>
   <div class="job-list">
     <h1>Lista de Empleos</h1>
-    
+
     <!-- Filtros -->
     <div class="filters">
       <select v-model="selectedLocation" @change="filterJobs">
@@ -43,25 +43,31 @@
       </select>
     </div>
 
+    <!-- Tarjetas de trabajos -->
     <div class="job-container">
       <div class="job-card" v-for="job in filteredJobs" :key="job.id">
-        <h2>{{ job.title }}</h2>
-        <p class="company">{{ job.company }}</p>
-        <p class="location">{{ job.location }}</p>
-        <p class="salary">Salario: ${{ job.salary }}</p>
-        <button class="apply-button">Aplicar</button>
+        <img :src="job.icono" alt="Logo de la empresa" class="job-icon"/>
+        <h2>{{ job.titulo }}</h2>
+        <p class="company">{{ job.nombre }}</p>
+        <p class="location">Departamento: {{ job.departamento }}</p>
+        <p class="salary">Salario: ${{ job.salario }}</p>
+        <!-- Enlace dinámico al detalle del empleo -->
+        <router-link :to="{ name: 'TrabajoDetalle', params: { id: job.id } }" class="view-job-button">
+          Ver Empleo
+        </router-link>
       </div>
     </div>
   </div>
 
-  <!-- Agrega el componente del footer aquí -->
+  <!-- Footer Component -->
   <FooterComponent />
 </template>
 
+
 <script>
-import { getFirestore, collection, getDocs } from "firebase/firestore"; // Importar Firestore
-import { app } from '@/firebase'; // Asegúrate de que esta ruta sea correcta
-import FooterComponent from '@/components/FooterComponent.vue'; // Asegúrate de que la ruta sea correcta
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { app } from '@/firebase';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
   name: 'TrabajoDetalle',
@@ -79,32 +85,30 @@ export default {
     };
   },
   created() {
-    this.fetchJobs(); // Llama a la función para obtener empleos desde Firestore
+    this.fetchJobs();
   },
   methods: {
     async fetchJobs() {
       const db = getFirestore(app);
-      const jobsCollection = collection(db, "Empleo");
+      const jobsCollection = collection(db, "empleos");
       const jobSnapshot = await getDocs(jobsCollection);
       this.jobs = jobSnapshot.docs.map(doc => ({
         id: doc.id,
-        title: doc.data().Titulo,
-        company: doc.data().Compañía,
-        location: doc.data().Ubicacion,
-        salary: doc.data().Salario,
-        specialty: doc.data().Especialidad,
-        hours: doc.data().Horas,
+        titulo: doc.data().Título,
+        nombre: doc.data().nombre,
+        icono: doc.data().icono,
+        departamento: doc.data().Departamento,
+        salario: doc.data().Salario,
       }));
       this.filteredJobs = this.jobs;
     },
     filterJobs() {
       this.filteredJobs = this.jobs.filter(job => {
         const matchesLocation = this.selectedLocation ? job.location === this.selectedLocation : true;
-        
-        // Nueva lógica de filtro para el salario
+
         let matchesSalary = true;
         if (this.selectedSalary) {
-          const salaryValue = job.salary; // Obtiene el salario del trabajo
+          const salaryValue = job.salario;
           if (this.selectedSalary === "300") {
             matchesSalary = salaryValue < 300;
           } else if (this.selectedSalary === "350-500") {
