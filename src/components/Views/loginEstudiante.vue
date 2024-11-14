@@ -38,20 +38,16 @@ export default {
       this.showPassword = !this.showPassword;
     },
     async validarLogin() {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, `${this.carnet}@ugbedu.com`, this.password);
-    console.log('Usuario logueado:', userCredential.user);
-    
-    // Guarda el estado de autenticación en localStorage
-    localStorage.setItem('user', JSON.stringify(userCredential.user));
-
-    // Redirige a la página principal que muestra HelloWorld.vue
-    this.$router.push("/"); // Cambia "/inicio" a "/"
-  } catch (error) {
-    console.error("Error de autenticación:", error.message);
-    alert("Carnet o contraseña incorrectos.");
-  }
-}
+      try {
+        // Asumimos que el carnet es el correo electrónico del estudiante
+        const userCredential = await signInWithEmailAndPassword(auth, `${this.carnet}@ugbedu.com`, this.password);
+        console.log('Usuario logueado:', userCredential.user);
+        this.$router.push("/inicio"); // Redirige al home si el login es exitoso
+      } catch (error) {
+        console.error("Error de autenticación:", error.message);
+        alert("Carnet o contraseña incorrectos.");
+      }
+    }
   }
 };
 </script>

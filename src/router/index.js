@@ -3,8 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    name: 'Home',  // Ruta de inicio
-    component: () => import('../components/HelloWorld.vue'),
+    redirect: '/login',  // Redirige al login en lugar de mostrar el home
   },
   {
     path: '/login',
@@ -12,47 +11,51 @@ const routes = [
     component: () => import("../components/Views/loginEstudiante.vue"),
   },
   {
+    path: '/trabajo',
+    name: 'Trabajo',
+    component: () => import("../components/Views/Lista-Empleos.vue"),
+    meta: { requiresAuth: true },  // Añadimos la meta para comprobar si está autenticado
+  },
+  {
     path: '/registro',
     name: 'Registro',
     component: () => import("../components/Views/registroEstudiante.vue"),
   },
   {
-    path: '/trabajo',
-    name: 'Trabajo',
-    component: () => import("../components/Views/Lista-Empleos.vue"),
-    meta: { requiresAuth: false },  // Añadido meta de autenticación
+    path: '/empleo',
+    name: 'Empleo',
+    component: () => import("../components/Views/EmpleoPage.vue"),
+    meta: { requiresAuth: true },  // Añadimos la meta para comprobar si está autenticado
   },
   {
-    path: '/empleo/:id',  // Asegúrate de que el parámetro :id esté en la ruta
-    name: 'TrabajoDetalle',
-    component: () => import('../components/Views/TrabajoDetalle.vue'),
+    path: '/inicio',
+    name: 'InicioUsuario',
+    component: () => import("../components/Views/Inicio-User.vue"),
     meta: { requiresAuth: true },
   },
   {
     path: '/MiCV',
     name: 'MiCurriculum',
     component: () => import("../components/Views/MiCV.vue"),
-    meta: { requiresAuth: false }, // Añadido meta de autenticación
+    meta: { requiresAuth: true },
   },
   {
     path: '/contactos',
     name: 'ContactPage',
     component: () => import('../components/Views/Contactos.vue'),
-    meta: { requiresAuth: false },  // Añadido meta de autenticación
-  },
-  {
-    path: '/empleo',
-    name: 'Empleo',
-    component: () => import("../components/Views/EmpleoPage.vue"),
-    meta: { requiresAuth: true },  // Añadido meta de autenticación
+    meta: { requiresAuth: true },
   },
   {
     path: '/footer',
     name: 'FooterComponent',
     component: () => import('../components/FooterComponent.vue'),
   },
-  // Ruta de redirección en caso de que se intente acceder a rutas que no existen
-  
+  {
+    path: '/empleo/:id',
+    name: 'TrabajoDetalle',
+    component: () => import('../components/Views/TrabajoDetalle.vue'),
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = createRouter({
@@ -63,17 +66,10 @@ const router = createRouter({
 // Guardia global para verificar si el usuario está autenticado
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('user');  // Cambia esto según tu método de autenticación
-  // Si la ruta requiere autenticación y no está autenticado, redirige al login
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-    next('/login');  
+    next('/login');  // Si no está autenticado, redirige al login
   } else {
-    // Si está autenticado o la ruta no requiere autenticación, continua
-    // Si ya está en la página de login y el usuario está autenticado, redirige al inicio
-    if (to.name === 'Login' && isAuthenticated) {
-      next('/inicio');
-    } else {
-      next();  
-    }
+    next();  // Si está autenticado o no necesita autenticación, continua
   }
 });
 
