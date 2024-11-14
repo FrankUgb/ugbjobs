@@ -3,8 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    name: 'Home',  // Ruta de inicio
-    component: () => import('../components/HelloWorld.vue'),
+    redirect: '/login', // Redirige a la página de login
   },
   {
     path: '/login',
@@ -62,15 +61,12 @@ const router = createRouter({
 
 // Guardia global para verificar si el usuario está autenticado
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('user');  // Cambia esto según tu método de autenticación
-  // Si la ruta requiere autenticación y no está autenticado, redirige al login
+  const isAuthenticated = localStorage.getItem('user'); // Verifica si hay un usuario en localStorage
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     next('/login');  
   } else {
-    // Si está autenticado o la ruta no requiere autenticación, continua
-    // Si ya está en la página de login y el usuario está autenticado, redirige al inicio
     if (to.name === 'Login' && isAuthenticated) {
-      next('/inicio');
+      next('/inicio'); // Si ya está autenticado y quiere ir al login, redirige a inicio
     } else {
       next();  
     }
