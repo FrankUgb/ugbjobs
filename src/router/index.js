@@ -28,11 +28,11 @@ const routes = [
     meta: { requiresAuth: true },  // Añadimos la meta para comprobar si está autenticado
   },
   {
-    path: '/inicio',
-    name: 'InicioUsuario',
-    component: () => import("../components/Views/Inicio-User.vue"),
-    meta: { requiresAuth: true },
+    path: '/inicio',   // Ruta para la página de inicio
+    name: 'HelloWorld', // Nombre de la ruta
+    component: () => import('@/components/HelloWorld.vue') // Ruta del componente
   },
+  
   {
     path: '/MiCV',
     name: 'MiCurriculum',
