@@ -60,6 +60,7 @@ export default {
   data() {
     return {
       profilePhoto: '',
+      profilePhotoUrl: '', // Para almacenar la URL de la foto
       fullName: '',
       email: '',
       academicProgress: '',
@@ -73,6 +74,16 @@ export default {
     async handleSaveCv() {
       if (this.areFieldsValid()) {
         try {
+          let profilePhotoUrl = this.profilePhotoUrl;
+
+          // Si hay una nueva imagen, la subimos a Firebase Storage
+          if (this.$refs.profileFileInput.files.length > 0) {
+            const file = this.$refs.profileFileInput.files[0];
+            const fileRef = storageRef(storage, `profilePhotos/${this.fullName}_${file.name}`);
+            await uploadBytes(fileRef, file);
+            profilePhotoUrl = await getDownloadURL(fileRef);
+          }
+
           // Generar el PDF
           const pdfBlob = await this.generatePdfBlob();
           const pdfRef = storageRef(storage, `curriculums/${this.fullName}.pdf`);
@@ -90,7 +101,7 @@ export default {
             professionalGoal: this.professionalGoal,
             technicalSkills: this.technicalSkills,
             softSkills: this.softSkills,
-            profilePhoto: this.profilePhoto,
+            profilePhoto: profilePhotoUrl,
             pdfUrl: pdfUrl
           });
 
@@ -161,14 +172,14 @@ export default {
 
 <style scoped>
 .cv-container {
-  background-color: #F7F7F7; /* Gris claro para el fondo del contenedor */
+  background-color: #F7F7F7;
   padding: 30px;
   border-radius: 12px;
   max-width: 800px;
   margin: 40px auto;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
-  color: #333333; /* Gris oscuro para el texto */
+  color: #333333;
 }
 
 .header {
@@ -177,7 +188,7 @@ export default {
 }
 
 h1 {
-  color: #005521; /* Verde esmeralda para el título */
+  color: #005521;
   font-size: 2.5em;
   font-weight: 600;
   margin-bottom: 10px;
@@ -196,7 +207,7 @@ h1 {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 4px solid #50C878; /* Verde esmeralda */
+  border: 4px solid #50C878;
   margin-top: 20px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
@@ -206,26 +217,26 @@ h1 {
   display: block;
   margin-top: 10px;
   margin-bottom: 20px;
-  padding: 18px 20px; /* Aumento el padding para mayor tamaño */
-  border: none; /* Sin borde */
-  border-radius: 12px; /* Bordes más redondeados */
+  padding: 18px 20px;
+  border: none;
+  border-radius: 12px;
   width: 100%;
   font-size: 16px;
-  background-color: #FFFFFF; /* Blanco para el fondo de los inputs */
-  color: #333333; /* Gris oscuro para el texto */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: all 0.3s ease; /* Transición suave */
+  background-color: #FFFFFF;
+  color: #333333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .plain-input:focus,
 .plain-textarea:focus {
   outline: none;
-  box-shadow: 0 0 8px #50C878; /* Verde esmeralda al enfocar */
+  box-shadow: 0 0 8px #50C878;
 }
 
 .plain-textarea {
   resize: none;
-  min-height: 150px; /* Aumento la altura de los textareas */
+  min-height: 150px;
 }
 
 label {
@@ -233,43 +244,38 @@ label {
   margin-top: 15px;
   margin-bottom: 8px;
   display: block;
-  color: #1C1C1C; /* Negro carbón */
+  color: #1C1C1C;
 }
 
 .section {
-  border: 1px solid #50C878; /* Verde esmeralda */
+  border: 1px solid #50C878;
   border-radius: 8px;
   padding: 25px;
   margin-bottom: 30px;
-  background-color: #FFFFFF;
-  box-sizing: border-box;
+  background-color: #fff;
 }
 
 .buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+  text-align: center;
 }
 
 .cta-button {
-  background-color: #CC5500; /* Naranja quemado */
-  color: #FFFFFF;
-  padding: 14px 22px;
-  border: none;
+  background-color: #50C878;
+  color: white;
+  padding: 12px 25px;
   border-radius: 8px;
+  font-size: 1.1em;
+  margin: 15px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  flex: 1;
-  margin-right: 15px;
-  font-size: 16px;
-}
-
-.cta-button:last-child {
-  margin-right: 0;
+  border: none;
+  transition: background-color 0.3s ease;
 }
 
 .cta-button:hover {
-  background-color: #FFD700; /* Amarillo dorado */
-  transform: scale(1.05);
+  background-color: #388E3C;
+}
+
+.cta-button:disabled {
+  background-color: #D0D0D0;
 }
 </style>
