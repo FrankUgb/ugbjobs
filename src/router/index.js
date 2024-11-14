@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    redirect: '/login', // Redirige a la página de login
+    name: 'Home',  // Ruta de inicio
+    component: () => import('../components/HelloWorld.vue'), // Asegúrate de que esta línea esté presente
   },
   {
     path: '/login',

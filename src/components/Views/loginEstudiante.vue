@@ -45,7 +45,8 @@ export default {
     // Guarda el estado de autenticación en localStorage
     localStorage.setItem('user', JSON.stringify(userCredential.user));
 
-    this.$router.push("/inicio"); // Redirige al home si el login es exitoso
+    // Redirige a la página principal que muestra HelloWorld.vue
+    this.$router.push("/"); // Cambia "/inicio" a "/"
   } catch (error) {
     console.error("Error de autenticación:", error.message);
     alert("Carnet o contraseña incorrectos.");
