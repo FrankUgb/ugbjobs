@@ -3,13 +3,13 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    name: 'Home',  // Ruta de inicio
-    component: () => import('../components/HelloWorld.vue'), // Asegúrate de que esta línea esté presente
+    name: 'Home',
+    component: () => import('../components/HelloWorld.vue'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import("../components/Views/loginEstudiante.vue"),
+    component: () => import("../components/Views/loginEstudiante.vue"), // Verifica que esta ruta sea correcta
   },
   {
     path: '/registro',
