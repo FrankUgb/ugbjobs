@@ -56,6 +56,16 @@ const routes = [
     component: () => import('../components/Views/TrabajoDetalle.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import("../components/Views/loginEstudiante.vue"),
+  },
+  {
+    path: '/registro',
+    name: 'Registro',
+    component: () => import("../components/Views/registroEstudiante.vue"), // Asegúrate de que esta ruta apunte a la página de registro
+  },
 ];
 
 const router = createRouter({

@@ -124,3 +124,23 @@ button:hover {
     cursor: pointer;
     font-size: 20px; /* Tamaño del ícono */
 }
+
+.registro-enlace {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .registro-enlace p {
+    font-size: 14px;
+  }
+  
+  .registro-enlace a {
+    color: #2ECC71; /* Color que coincide con el botón */
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .registro-enlace a:hover {
+    color: #333; /* Cambio de color cuando el enlace se pasa por encima */
+  }
+  
