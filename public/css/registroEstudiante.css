@@ -1,7 +1,7 @@
 :root {
     --color-principal: #2ECC71;
     --color-secundario: #333;
-    --color-fondo: #fff;
+    --color-fondo: #ffffff;
     --color-boton-texto: #000;
     --color-boton-hover: #333333;
     --color-boton-hover-texto: #ffffff;
@@ -18,19 +18,20 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding-top: 50px;
-    overflow-y: auto; /* Permite desplazamiento si el contenido es muy grande */
+    overflow: hidden;
 }
 
 .formulario-contenedor {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--color-fondo); /* Fondo blanco sólido */
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     width: 90%;
     max-width: 450px;
+    max-height: 80vh;
+    overflow-y: auto;
     margin: 20px auto;
     animation: fade-in 0.5s ease-out;
+    border: 1px solid #ddd; /* Agrega un borde ligero para destacar */
 }
 
 @keyframes fade-in {
@@ -116,18 +117,13 @@ button:hover {
 /* Media query para pantallas pequeñas */
 @media (max-width: 480px) {
     .formulario-contenedor {
+        width: 95%;
+        max-height: 70vh;
         padding: 20px;
-        width: 95%; /* Ocupar casi todo el ancho */
-        margin-top: 40px; /* Más margen superior en móviles */
-    }
-
-    button {
-        font-size: 14px;
-        padding: 10px;
+        margin-top: 20px;
     }
 }
 
-/* Media query para pantallas medianas */
 @media screen and (min-width: 768px) {
     .formulario-contenedor {
         max-width: 500px;
@@ -135,7 +131,6 @@ button:hover {
     }
 }
 
-/* Media query para pantallas grandes */
 @media screen and (min-width: 1024px) {
     .formulario-contenedor {
         max-width: 600px;
